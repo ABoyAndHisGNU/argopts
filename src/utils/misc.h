@@ -15,6 +15,6 @@
 
 #define CAST_BOOL_PTR(ptr)	((_Bool *) (ptr))
 #define CAST_INT_PTR(ptr)	((int *) (ptr))
-#define CAST_STR_PTR(ptr)	((char *) (ptr))
+#define CAST_STR_PTR(ptr)	((char **) (ptr))
 
 #endif /* !MISC_H_ */

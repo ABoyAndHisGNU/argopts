@@ -97,11 +97,9 @@ options_delete_db(options_db_t **ptr)
 			free(prev);
 		}
 
-		if (prev)
-		{
+		if (prev && prev->free)
 			free(prev->value);
-			FREE(prev);
-		}
+		FREE(prev);
 	}
 
 	FREE(db);
@@ -181,7 +179,7 @@ options_add(
 				option->value = (void *) calloc(n, sizeof(int));
 				break;
 			case OPT_STRING:
-				option->value = (void *) calloc(n, sizeof(char *));
+				option->value = (void **) calloc(n, sizeof(char *));
 				break;
 			default:
 				fatal("option added with type '%d' but no such type exists", type);

@@ -32,9 +32,9 @@ $(LIB): $(OBJ)
 	ar rcs $@ $^
 
 debug: $(BIN)
-	valgrind --leak-check=full ./$(BIN) --tbool 0 1 0 --tint 123
+	valgrind --leak-check=full ./$(BIN) --tbool 0 1 0 --tint 123 --tstr test
 
-$(BIN): $(OBJ)
+$(BIN): test/main.c.o $(OBJ)
 	$(CC) $(LDFLAGS) $(CFLAGS) -o $@ $^
 
 %.o: %

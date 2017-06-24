@@ -21,6 +21,7 @@ print_help(FILE *fstream)
 int
 main(int argc, char *argv[])
 {
+	char *str;
 	_Bool b_help;
 	_Bool b_verbose;
 
@@ -49,6 +50,13 @@ main(int argc, char *argv[])
 		"prints this menu",
 		NULL,
 		OPT_INT,
+		1);
+	options_add(
+		db,
+		"--tstr",
+		"prints this menu",
+		&str,
+		OPT_STRING,
 		1);
 
 	options_process_args(db, argc, argv);
