@@ -16,7 +16,7 @@ CC = gcc
 CP = objcopy
 DP = objdump
 
-CDEFS_LIST = DEBUG 
+CDEFS_LIST =  
 CDEFS      = $(addprefix -D, $(CDEFS_LIST))
 
 override CFLAGS  += -Wall -Werror $(CDEFS) -g -I./src -Wno-unused -std=c99
@@ -26,9 +26,10 @@ SRC = $(shell find ./src -name "*.c")
 OBJ = $(addsuffix .o, $(SRC))
 
 BIN = $(PROJECT)
+LIB = lib$(PROJECT).a
 
-#default: $(BIN)
-#	./$(BIN) --verbose --test --help
+$(LIB): $(OBJ)
+	ar rcs $@ $^
 
 debug: $(BIN)
 	valgrind --leak-check=full ./$(BIN) --tbool 0 1 0 --tint 123
@@ -40,7 +41,7 @@ $(BIN): $(OBJ)
 	$(CC) $(CFLAGS) -c -o $@ $^
 
 clean:
-	rm -f $(OBJ) *.zip
+	rm -f $(BIN) $(LIB) $(OBJ) *.zip
 
 deep-clean: clean
 	rm -f *.dump
@@ -48,4 +49,4 @@ deep-clean: clean
 zip:
 	zip $(PROJECT).zip *.c *.def *.h *.inc Makefile
 
-.PHONY: all clean debug deep-clean default dump zip
+.PHONY: all clean debug deep-clean default dump lib zip
